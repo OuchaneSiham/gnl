@@ -6,7 +6,7 @@
 /*   By: souchane <souchane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 13:14:41 by souchane          #+#    #+#             */
-/*   Updated: 2023/12/12 14:33:16 by souchane         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:31:12 by souchane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(const char *s)
 	size_t	i;
 
 	i = 0;
+    if (!s)
+        return (0);
 	while (s[i] != '\0')
 		i++;
 	return (i);
@@ -26,6 +28,8 @@ int strchar(char *str, int c)
 {
     int i;
     i = 0;
+    if (!str)
+        return (0);
     while (str[i])
     {
         if (str[i] == c)

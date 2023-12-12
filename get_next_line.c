@@ -6,11 +6,10 @@
 /*   By: souchane <souchane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:04:05 by souchane          #+#    #+#             */
-/*   Updated: 2023/12/12 16:05:03 by souchane         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:32:48 by souchane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// cc *.c -D BUFFER_SIZE=10
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -86,6 +85,7 @@ char *ft_strjoin(char *s1, char *s2)
     strcpy(str, s1);
     strcat(str, s2);
     str[len] = '\0';
+    free(s1);
     return (str);
 }
 
@@ -116,7 +116,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	if (!s)
 		return (0);
 	if (!len || start >= ft_strlen(s))
-		return (ft_strdup(""));
+		return (free(s), ft_strdup(""));
 	slen = ft_strlen(s + start);
 	if (slen > len)
 		slen = len; 
@@ -133,7 +133,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
     // free(si);
 	return (si);
 }
-char *gnl(int fd)
+char *get_next_line(int fd)
 {
     char *buffer;
     char *str;
@@ -147,31 +147,43 @@ char *gnl(int fd)
     while (strchar(buffer, '\n') == 0 && r)
     {
         r = read(fd, buffer, BUFFER_SIZE);
-        if (r == -1)
-           return NULL;
+        if (r <= 0 && ft_strlen(line) == 0)
+        {
+            free(buffer);
+            return NULL;
+        }
         buffer[BUFFER_SIZE] = '\0';
 
         line = ft_strjoin(line, buffer);
     }
-    // free (buffer);
+    free (buffer);
     str = sh(line);
     line = ft_substr(line, ft_strlen(str), ft_strlen(line + ft_strlen(str)));
-    // free (line);
     return (str);
 }
 
-int main()
-{
-    int fd = open("tett", O_RDONLY);
+// void f()
+// {
+//     system("leaks a.out");
+// }
 
-    char *str;
-    str = gnl(fd);
-    printf("%s", str);
-        str = gnl(fd);
-    printf("%s", str);
-        str = gnl(fd);
-    printf("%s", str);
-        str = gnl(fd);
-    printf("%s", str);
-    // while(1);
-}
+// int main()
+// {
+//     atexit(f);
+//     int fd = open("tett", O_RDONLY);
+
+//     char *str;
+//     str = gnl(fd);
+//     printf("%s", str);
+//     free(str);
+//         str = gnl(fd);
+//     printf("%s", str);
+//         free(str);
+//     str = gnl(fd);
+//     printf("%s", str);
+//     free(str);
+//     str = gnl(fd);
+//     printf("%s", str);
+//     free(str);
+//     // while(1);
+// }
