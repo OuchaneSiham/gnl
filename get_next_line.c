@@ -6,7 +6,7 @@
 /*   By: souchane <souchane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:04:05 by souchane          #+#    #+#             */
-/*   Updated: 2023/12/12 15:39:11 by souchane         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:05:03 by souchane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,24 @@
 //     return (s1);
 // }
 # include "get_next_line.h"
-char	*ft_strjoin(char *s1, char *s2)
+char *ft_strjoin(char *s1, char *s2)
 {
-	size_t		i;
-	size_t		j;
-	char		*str;
+    char *str;
+    int len;
 
-	if (!s1)
-	{
-		s1 = malloc(1);
-		if (!s1)
-			return (NULL);
-		s1[0] = 0;
-	}
-	if (!s2)
-		return (NULL);
-	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
-		return (NULL);
-	i = -1;
-	while (s1[++i])
-		str[i] = s1[i];
-	j = -1;
-	while (s2[++j])
-		str[i++] = s2[j];
-	str[i] = '\0';
-	free (s1);
-	return (str);
+    if (!s1)
+    {
+        s1 = malloc(1);
+        s1[0] = 0;
+    }
+    len = strlen(s1) + strlen(s2);
+    str = malloc(sizeof(char) * (len + 1));
+    if (!str)
+        return (0);
+    strcpy(str, s1);
+    strcat(str, s2);
+    str[len] = '\0';
+    return (str);
 }
 
 char	*ft_strdup(const char *s1)
@@ -152,19 +143,14 @@ char *gnl(int fd)
     buffer = malloc(BUFFER_SIZE + 1);
     if (!buffer)
         return NULL;
-    while (strchar(buffer, '\n') == 0 && r != 0)
+    r = 1;
+    while (strchar(buffer, '\n') == 0 && r)
     {
         r = read(fd, buffer, BUFFER_SIZE);
         if (r == -1)
-        {
-            
            return NULL;
-        }
-        if (r == 0){
-            printf("**%d*\n", r);
-            printf("**%s*\n", buffer);
-        }
-        buffer[r] = '\0';
+        buffer[BUFFER_SIZE] = '\0';
+
         line = ft_strjoin(line, buffer);
     }
     // free (buffer);
