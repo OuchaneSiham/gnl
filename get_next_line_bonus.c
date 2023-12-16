@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: souchane <souchane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 17:04:05 by souchane          #+#    #+#             */
-/*   Updated: 2023/12/16 16:26:15 by souchane         ###   ########.fr       */
+/*   Created: 2023/12/15 17:35:10 by souchane          #+#    #+#             */
+/*   Updated: 2023/12/16 19:09:15 by souchane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_substr(char *s, int start, size_t len)
 {
@@ -36,7 +36,7 @@ char	*ft_substr(char *s, int start, size_t len)
 
 char	*ssh(char **line)
 {
-	char	*str;
+	char	*s1;
 	int		i;
 	int		len;
 
@@ -46,15 +46,15 @@ char	*ssh(char **line)
 		len++;
 	if ((*line)[len] == '\n')
 		len++;
-	str = malloc (len + 1);
+	s1 = malloc (len + 1);
 	while (i < len)
 	{
-		str[i] = (*line)[i];
+		s1[i] = (*line)[i];
 		i++;
 	}
-	str[i] = '\0';
+	s1[i] = '\0';
 	(*line) = ft_substr((*line), len, ft_strlen((*line) + len));
-	return (str);
+	return (s1);
 }
 
 char	*gnl(int fd, char **line, char *buffer)
@@ -88,11 +88,12 @@ char	*get_next_line(int fd)
 {
 	char		*buffer;
 	char		*str;
-	static char	*line = NULL;
+	static char	*line[OPEN_MAX];
 	int			i;
 
 	i = 0;
-	if (fd < 0 || BUFFER_SIZE < 0 || BUFFER_SIZE > INT_MAX)
+	if (fd < 0 || BUFFER_SIZE < 0 || BUFFER_SIZE > INT_MAX
+		|| fd >= OPEN_MAX)
 		return (NULL);
 	if (BUFFER_SIZE == INT_MAX)
 		buffer = malloc(BUFFER_SIZE);
@@ -100,15 +101,20 @@ char	*get_next_line(int fd)
 		buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	str = gnl(fd, &line, buffer);
+	str = gnl(fd, &line[fd], buffer);
 	return (str);
 }
 
 // int main()
 // {
-//     int fd = open("tett", O_RDONLY);
+//     int fd = open("tett2", O_RDONLY);
+//     int fd1 = open("tett", O_RDONLY);
 //     printf("%s", get_next_line(fd));
+//     printf("%s", get_next_line(fd1));
 //     printf("%s", get_next_line(fd));
-//     printf("%s", get_next_line(fd));
-//     printf("%s", get_next_line(fd));
+//     printf("%s", get_next_line(fd1));
+//      printf("%s\n", get_next_line(fd));
+//     printf("%s", get_next_line(fd1));
+//      printf("%s\n", get_next_line(fd));
+//     printf("%s", get_next_line(fd1));
 // }
