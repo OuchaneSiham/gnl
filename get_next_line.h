@@ -6,16 +6,15 @@
 /*   By: souchane <souchane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 12:57:31 by souchane          #+#    #+#             */
-/*   Updated: 2023/12/16 14:28:29 by souchane         ###   ########.fr       */
+/*   Updated: 2023/12/23 11:41:52 by souchane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-# include <unistd.h>
-# include <stdio.h>
 # include <fcntl.h>
+# include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
 # include <limits.h>

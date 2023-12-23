@@ -6,7 +6,7 @@
 /*   By: souchane <souchane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:04:05 by souchane          #+#    #+#             */
-/*   Updated: 2023/12/16 16:26:15 by souchane         ###   ########.fr       */
+/*   Updated: 2023/12/22 11:35:42 by souchane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,16 @@ char	*gnl(int fd, char **line, char *buffer)
 	int		r;
 	char	*str;
 
-	r = 1;
-	while (ft_strchr(*line, '\n') == 0 && r)
+	while (ft_strchr(*line, '\n') == 0)
 	{
 		r = read(fd, buffer, BUFFER_SIZE);
-		if (r <= 0 && ft_strlen(*line) == 0)
+		if ((r <= 0 && ft_strlen(*line) == 0) || r == -1)
 		{
 			if (*line)
+			{
 				free(*line);
+				*line = NULL;
+			}
 			return (free(buffer), NULL);
 		}
 		if (r == 0)
@@ -89,26 +91,12 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	char		*str;
 	static char	*line = NULL;
-	int			i;
 
-	i = 0;
 	if (fd < 0 || BUFFER_SIZE < 0 || BUFFER_SIZE > INT_MAX)
 		return (NULL);
-	if (BUFFER_SIZE == INT_MAX)
-		buffer = malloc(BUFFER_SIZE);
-	else
-		buffer = malloc(BUFFER_SIZE + 1);
+	buffer = malloc((size_t)BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
 	str = gnl(fd, &line, buffer);
 	return (str);
 }
-
-// int main()
-// {
-//     int fd = open("tett", O_RDONLY);
-//     printf("%s", get_next_line(fd));
-//     printf("%s", get_next_line(fd));
-//     printf("%s", get_next_line(fd));
-//     printf("%s", get_next_line(fd));
-// }
