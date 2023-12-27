@@ -6,7 +6,7 @@
 /*   By: souchane <souchane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 12:57:31 by souchane          #+#    #+#             */
-/*   Updated: 2023/12/23 11:41:52 by souchane         ###   ########.fr       */
+/*   Updated: 2023/12/25 12:17:20 by souchane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,8 @@ int		ft_strchr(char *str, int c);
 size_t	ft_strlen(const char *s);
 char	*ft_strcpy(char *dest, char *src);
 
+
+
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char *s, int fd);
 #endif

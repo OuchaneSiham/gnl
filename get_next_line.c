@@ -6,7 +6,7 @@
 /*   By: souchane <souchane@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:04:05 by souchane          #+#    #+#             */
-/*   Updated: 2023/12/22 11:35:42 by souchane         ###   ########.fr       */
+/*   Updated: 2023/12/27 15:36:55 by souchane         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ssh(char **line)
 
 	i = 0;
 	len = 0;
-	while ((*line)[len] != '\0' && (*line)[len] != '\n')
+	while ((*line) && (*line)[len] != '\0' && (*line)[len] != '\n')
 		len++;
 	if ((*line)[len] == '\n')
 		len++;
@@ -100,3 +100,65 @@ char	*get_next_line(int fd)
 	str = gnl(fd, &line, buffer);
 	return (str);
 }
+// int main()
+// {
+// 	int fd = open("aa", O_CREAT | 	O_TRUNC | O_RDWR, 0777);
+// 	int fd1 = open("tt", O_CREAT  | O_RDONLY, 0777);
+// 	char *line;
+// 	line = get_next_line(fd1);
+// 	ft_putstr_fd(line, fd);
+// 	line = get_next_line(fd1);
+// 	ft_putstr_fd(line, fd);
+// }
+// int main()
+// {
+// 	int fd = open("aa", O_CREAT | 	O_TRUNC | O_RDWR, 0777);
+// 	char *line;
+// 	line = get_next_line(0);
+// 	ft_putstr_fd(line, fd);
+// 	line = get_next_line(0);
+// 	ft_putstr_fd(line, fd);
+// }
+
+// int main()
+// {
+// 	int fd = open("aa", O_CREAT | 	O_TRUNC | O_RDWR, 0777);
+// 	int fd1 = open("tt", O_CREAT  | O_RDONLY, 0777);
+// 	char *line;
+
+// 	line = get_next_line(fd1);
+// 	while (line)
+// 	{
+// 	ft_putstr_fd(line, fd);
+// 	line = get_next_line(fd1);
+// 	}
+// }
+
+
+// int main()
+// {
+// 	int fd = open("aa", O_CREAT | 	O_TRUNC | O_RDWR, 0777);
+// 	char *line;
+
+// 	line = get_next_line(0);
+// 	while (line)
+// 	{
+// 	ft_putstr_fd(line, fd);
+// 	line = get_next_line(0);
+// 	}
+// }
+// int main()
+// {
+// 	int  fd = open("aa", O_CREAT | O_TRUNC | O_RDWR, 0777);
+// 	int fd1 = open("ss", O_RDONLY);
+// 	char *line;
+// 	line = get_next_line(0);
+// 	while(line)
+// 	{
+// 		ft_putstr_fd(line, fd);
+// 		line = get_next_line(0);
+// 	}}
+// 	ft_putstr_fd(line, fd);
+// 		line = get_next_line(fd1);
+// 	ft_putstr_fd(line, fd);
+// }
